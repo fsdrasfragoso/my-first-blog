@@ -1,10 +1,10 @@
-from django.shortcuts import render
+    
+from django.shortcuts import render, render_to_response, RequestContext
 from django.http import HttpResponse
-
 from .forms import MeuForm
 
 
-def home(request):
+def index(request):
  
     # Cria form
     form = MeuForm(request.POST or None)
