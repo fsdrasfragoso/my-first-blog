@@ -11,8 +11,7 @@ def index(request):
  
     # Valida e salva
     if form.is_valid():
-        inep = form.field(commit='INEP')
-        nome = form.field(commit='Nome da Escola')
+        
         salvar = form.save(commit=False)
         salvar.save()
         return HttpResponse("Dados inseridos com sucesso!")        
