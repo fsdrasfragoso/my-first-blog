@@ -5,5 +5,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'mysite.core.views.index', name='index'),
+    url(r'^contact/', 'mysite.core.views.contact', name='contact'),
     url(r'^admin/', include(admin.site.urls)),
 )
