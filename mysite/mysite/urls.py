@@ -1,20 +1,9 @@
-from django.conf.urls import url, include, patterns
-from django.contrib import admin
+from django.conf.urls import patterns, include, url
 
+from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$','mysite.core.views.home', name='home'),
+    url(r'^$', 'mysite.core.views.index', name='index'),
     url(r'^admin/', include(admin.site.urls)),
-
-)
-from django.conf.urls import url, include, patterns
-from django.contrib import admin
-
-admin.autodiscover()
-
-urlpatterns = patterns('',
-    url(r'^$','mysite.core.views.home', name='home'),
-    url(r'^admin/', include(admin.site.urls)),
-
 )
