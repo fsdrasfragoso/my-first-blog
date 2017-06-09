@@ -167,18 +167,17 @@ class Nota08(models.Model):
 
 
 class Questao(models.Model):
-   # idquestao = models.AutoField(db_column='idQuestao')  # Field name made lowercase.
-    pergunta = models.CharField(max_length=5000)
-    resposta = models.CharField(db_column='Resposta', max_length=5000)  # Field name made lowercase.
+ #   idquestao = models.AutoField(db_column='idQuestao')  # Field name made lowercase.
+    pergunta = models.TextField()
+    resposta = models.TextField(db_column='Resposta')  # Field name made lowercase.
     score = models.FloatField(db_column='Score')  # Field name made lowercase.
     nivel = models.IntegerField(db_column='Nivel')  # Field name made lowercase.
-    #assunto_idassunto = models.ForeignKey(Assunto, db_column='Assunto_idAssunto')  # Field name made lowercase.
+    assunto_idassunto = models.ForeignKey(Assunto, db_column='Assunto_idAssunto')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'questao'
-     #   unique_together = (('idQuestao', 'Assunto_idAssunto'),)
-
+#        unique_together = (('idQuestao', 'Assunto_idAssunto'),)
 
 class Ranking(models.Model):
   #  idranking = models.AutoField(db_column='idRanking')  # Field name made lowercase.
@@ -190,16 +189,17 @@ class Ranking(models.Model):
         db_table = 'ranking'
    #     unique_together = (('idRanking', 'ALUNO_matricula'),)
 
-
 class Turma(models.Model):
-   # idturma = models.AutoField(db_column='idTurma')  # Field name made lowercase.
+  #  idturma = models.AutoField(db_column='idTurma')  # Field name made lowercase.
     nome = models.CharField(db_column='Nome', max_length=45, blank=True, null=True)  # Field name made lowercase.
-  #  escola_inep = models.ForeignKey(Escola, db_column='ESCOLA_inep')  # Field name made lowercase.
+    descricao = models.TextField(blank=True, null=True)
+    url = models.CharField(max_length=100, blank=True, null=True)
+    escola_inep = models.ForeignKey(Escola, db_column='ESCOLA_inep')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'turma'
-   #     unique_together = (('idTurma', 'ESCOLA_inep'),)
+      #  unique_together = (('idTurma', 'ESCOLA_inep'),)
 
 
 class Usuario(models.Model):

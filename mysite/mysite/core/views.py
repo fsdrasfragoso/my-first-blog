@@ -8,3 +8,7 @@ def index(request):
 
 def contact(request):
 	return render(request, 'contact.html')
+
+
+def turma(request):
+	return render(request, 'turma.html')	
