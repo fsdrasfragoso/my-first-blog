@@ -11,7 +11,16 @@ class EscolaManager(models.Manager):
 			models.Q(nome_icontains=query)
 		)
 		
-		
+class TurmaManager(models.Manager):
+  
+  def search(self, query):
+    return self.get_queryset().filter(
+      models.Q(nome_icontains=query) | \
+      models.Q(descricao_icontains=query)
+      
+      
+    )
+
 
 class Aluno(models.Model):
     matricula = models.CharField(max_length=45)
@@ -190,16 +199,16 @@ class Ranking(models.Model):
    #     unique_together = (('idRanking', 'ALUNO_matricula'),)
 
 class Turma(models.Model):
-  #  idturma = models.AutoField(db_column='idTurma')  # Field name made lowercase.
+    idTurma = models.IntegerField(db_column='idTurma',  blank=True, primary_key=True)  # Field name made lowercase.
     nome = models.CharField(db_column='Nome', max_length=45, blank=True, null=True)  # Field name made lowercase.
     descricao = models.TextField(blank=True, null=True)
-    url = models.CharField(max_length=100, blank=True, null=True)
+    url = models.ImageField(upload_to='TiaNalva/images', verbose_name='imagem', null=True, blank=True)
     escola_inep = models.ForeignKey(Escola, db_column='ESCOLA_inep')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'turma'
-      #  unique_together = (('idTurma', 'ESCOLA_inep'),)
+        unique_together = (('idTurma'),)
 
 
 class Usuario(models.Model):
