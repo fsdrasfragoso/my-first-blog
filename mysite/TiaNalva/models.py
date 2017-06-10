@@ -21,17 +21,27 @@ class TurmaManager(models.Manager):
       
     )
 
+class AlunoManager(models.Manager):
+  
+  def search(self, query):
+    return self.get_queryset().filter(
+      models.Q(matricula_icontains=query) | \
+      models.Q(nome_icontains=query) | \
+      models.Q(chamada_icontains=query)
+      
+    )
+
 
 class Aluno(models.Model):
-    matricula = models.CharField(max_length=45)
+    matricula = models.CharField(max_length=45,primary_key=True)
     nome = models.CharField(db_column='Nome', max_length=45)  # Field name made lowercase.
     chamada = models.IntegerField()
-    #turma_idturma = models.ForeignKey('Turma', db_column='Turma_idTurma')  # Field name made lowercase.
+    turma_idturma = models.ForeignKey('Turma', db_column='Turma_idTurma')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'aluno'
-       # unique_together = (('matricula', 'Turma_idTurma'),)
+        unique_together = (('matricula'),)
 
 
 
@@ -50,16 +60,27 @@ class Assunto(models.Model):
 
 
 
+
 class Disciplina(models.Model):
-   # iddisciplina = models.AutoField(db_column='idDisciplina')  # Field name made lowercase.
+    iddisciplina = models.IntegerField(db_column='idDisciplina', blank=True, primary_key=True)  # Field name made lowercase.
     nome = models.CharField(db_column='Nome', max_length=45, blank=True, null=True)  # Field name made lowercase.
-    #turma_idturma = models.ForeignKey('Turma', db_column='Turma_idTurma')  # Field name made lowercase.
+    turma_idturma = models.ForeignKey('Turma', db_column='Turma_idTurma')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'disciplina'
-       # unique_together = (('idDisciplina', 'Turma_idTurma'),)
+       # unique_together = (('idDisciplina'),)
 
+
+class AlunoHasDisciplina(models.Model):
+    id = models.IntegerField(db_column='id', blank=True, primary_key=True)
+    aluno_matricula = models.ForeignKey(Aluno, db_column='ALUNO_matricula')  # Field name made lowercase.
+    disciplina_iddisciplina = models.ForeignKey('Disciplina', db_column='Disciplina_idDisciplina')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'aluno_has_disciplina'
+        unique_together = (('id'),)
 
 
 
@@ -225,6 +246,8 @@ class Usuario(models.Model):
      #   unique_together = (('idUsuario', 'ESCOLA_inep'),)
 
 objects = EscolaManager()
-
 def _str_(self):
-	return self.inep
+  return self.nome 
+
+objects = TurmaManager()
+objects = AlunoManager()
