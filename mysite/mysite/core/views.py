@@ -17,3 +17,14 @@ def turma(request):
 		'turmas': turmas
 	}
 	return render(request, 'turma.html', context)	
+
+"""
+def details(request, pk):
+	turma = Turma.objects.get(pk=pk)
+	context = {
+		'turma': turma
+	}
+	template_name = 'details.html'
+	return render(request, template_name, context)
+
+"""

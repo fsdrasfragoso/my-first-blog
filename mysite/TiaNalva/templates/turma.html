@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
   <div class="pure-g-r content-ribbon">
     <div class="pure-u-1">
         <div class="l-box">
-            <h4 class="content-subhead">Listagem de Cursos do SimpleMOOC</h4>
-            <p>Abaixo a lista de cursos disponíveis na plataforma</p>
+            <h4 class="content-subhead">Listagem de Turmas</h4>
+            <p>Abaixo a lista de Turmas </p>
         </div>
     </div>
 </div>
@@ -15,27 +17,29 @@
     <div class="pure-u-1-3">
         <div class="l-box">
             <a href="#">
-            
-            <img src="#" alt="{{ turma.nome }}"/>
-            
-            
+            {% if turma.url %}
+            <img src="{{turma.url.url}}" alt="{{ turma.nome }}"/>
+            {% else %}
+            <img src="..{% static 'img/course-image.png' %}" alt="{{ turma.nome }}"/>
+            {%endif%}
                        </a>
+
         </div>
     </div>
     <div class="pure-u-2-3">
         <div class="l-box">
-            <h4 class="content-subhead"><a href="#" title="">{{ turma.name }}</a></h4>
-            <p>
-            {{turma.descricao}}
-            </p>
+            <h4 class="content-subhead"><a href="#" title="">{{ turma.nome }}</a></h4>
+            
+            {{turma.descricao|linebreaks}}
+            
         </div>
     </div>
 </div>
-
+    {% empty %}
 <div class="pure-g-r content-ribbon">
     <div class="pure-u-1">
         <div class="l-box">
-            <p>Nenhum curso está disponível na plataforma</p>
+            <p>Nenhuma Turma Cadastrada No Sistema</p>
         </div>
     </div>
 </div>
