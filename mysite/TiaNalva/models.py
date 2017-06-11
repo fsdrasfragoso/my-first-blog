@@ -91,7 +91,10 @@ class Escola(models.Model):
     class Meta:
         managed = False
         db_table = 'escola'
-
+        verbose_name = 'Escola'
+        verbose_name_plural = 'Escolas'
+        ordering = ['nome']
+        
 
 class Medias(models.Model):
   #  id = models.AutoField()
@@ -246,8 +249,6 @@ class Usuario(models.Model):
      #   unique_together = (('idUsuario', 'ESCOLA_inep'),)
 
 objects = EscolaManager()
-def _str_(self):
-  return self.nome 
 
 objects = TurmaManager()
 objects = AlunoManager()
