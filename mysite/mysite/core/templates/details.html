@@ -8,13 +8,13 @@
         <div class="pure-u-1">
             <div class="l-box splash-text">
                 <h1 class="splash-head">
-                    {{ turma.nome }}
+                    {{ turma }}
                 </h1>
                 <h2 class="splash-subhead">
                     {{ turma.descricao }}
                 </h2>
                 <p>
-                    <a href="#" class="pure-button primary-button">Cadastrar Aluno Na Turma</a>
+                    <a href="#" class="pure-button primary-button">Inscreva-se</a>
                 </p>
             </div>
         </div>
@@ -24,13 +24,13 @@
     <div class="pure-u-2-3">
         <div class="l-box">
             <h4 class="content-subhead">Sobre a Turma</h4>
-            {{ turma.about|linebreaks }}
+            {{ Turma.about|linebreaks }}
         </div>
     </div>
     <div class="pure-u-1-3">
         <div class="l-box">
             {% if turma.url %}
-            <img src="{{ turma.url.url }}" alt="{{ turma.nome }}" />
+            <img src="{{ turma.url }}" alt="" />
             {% else %}
             <img src="{% static 'img/course-image.png' %}" alt="" />
             {% endif %}

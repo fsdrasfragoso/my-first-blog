@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 from TiaNalva.models import Turma
@@ -18,13 +18,12 @@ def turma(request):
 	}
 	return render(request, 'turma.html', context)	
 
-"""
+
 def details(request, pk):
-	turma = Turma.objects.get(pk=pk)
+	turma = get_object_or_404(Turma, pk=pk)
 	context = {
 		'turma': turma
 	}
-	template_name = 'details.html'
-	return render(request, template_name, context)
+	 
+	return render(request, 'details.html', context)
 
-"""

@@ -3,6 +3,24 @@
 {% load static %}
 
 {% block content %}
+<div class="splash">
+    <div class="pure-g-r">
+        <div class="pure-u-1">
+            <div class="l-box splash-text">
+                <h1 class="splash-head">
+                    Lembrar de colocar algum texto
+                </h1>
+                <h2 class="splash-subhead">
+                    mais texto
+                </h2>
+                <p>
+                    <a href="#" class="pure-button primary-button">Cadastrar Turmas</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
   <div class="pure-g-r content-ribbon">
     <div class="pure-u-1">
         <div class="l-box">
@@ -16,7 +34,7 @@
 <div class="pure-g-r content-ribbon">
     <div class="pure-u-1-3">
         <div class="l-box">
-            <a href="#">
+            <a href="{% url 'details' turma.idTurma %}">
             {% if turma.url %}
             <img src="{{turma.url.url}}" alt="{{ turma.nome }}"/>
             {% else %}
@@ -28,7 +46,7 @@
     </div>
     <div class="pure-u-2-3">
         <div class="l-box">
-            <h4 class="content-subhead"><a href="#" title="">{{ turma.nome }}</a></h4>
+            <h4 class="content-subhead"><a href="{% url 'details' turma.idTurma %}" title="">{{ turma.nome }}</a></h4>
             
             {{turma.descricao|linebreaks}}
             

@@ -15,6 +15,7 @@ class TurmaManager(models.Manager):
   
   def search(self, query):
     return self.get_queryset().filter(
+      models.Q(idTurma_icontains=query) | \
       models.Q(nome_icontains=query) | \
       models.Q(descricao_icontains=query)
       
@@ -249,7 +250,14 @@ class Usuario(models.Model):
         db_table = 'usuario'
      #   unique_together = (('idUsuario', 'ESCOLA_inep'),)
 
+@models.permalink
+def get_absolute_url(self):
+  return('details', (). {'idTurma': self.idTurma})
+
+
 objects = EscolaManager()
 
 objects = TurmaManager()
 objects = AlunoManager()
+
+
