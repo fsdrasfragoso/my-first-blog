@@ -252,7 +252,7 @@ class Usuario(models.Model):
 
 @models.permalink
 def get_absolute_url(self):
-  return('details', (). {'idTurma': self.idTurma})
+  return reverse('details', args=(self.idTurma,))
 
 
 objects = EscolaManager()
