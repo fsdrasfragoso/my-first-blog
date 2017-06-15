@@ -37,6 +37,7 @@ def details(request, pk):
         form = ContactTurma(request.POST)
         if form.is_valid():
             context['is_valid'] = True
+            form.send_mail(turma)
             form = ContactTurma()
     else:
         form = ContactTurma()

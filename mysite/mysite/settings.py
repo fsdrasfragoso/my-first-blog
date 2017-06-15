@@ -109,3 +109,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'mysite','media')
 MEDIA_URL= '/media/'
+
+DEFAULT_FROM_EMAIL = 'Nome <tianalva1973@gmail.com>'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tianalva1973@gmail.com'
+EMAIL_HOST_PASSWORD = '31101973'
+EMAIL_PORT = 587
+
+CONTACT_EMAIL = 'tianalva1973@gmail.com'
