@@ -118,3 +118,8 @@ EMAIL_HOST_PASSWORD = '31101973'
 EMAIL_PORT = 587
 
 CONTACT_EMAIL = 'tianalva1973@gmail.com'
+
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_URL = 'logout'
