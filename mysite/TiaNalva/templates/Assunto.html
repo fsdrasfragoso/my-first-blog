@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="pure-g-r content-ribbon">
+        <div class="pure-u-1">
+            <h1>Cadastrar Assuntos das Disciplinas:</h1>
+            <p>Selecione a Turma </p>
+            
+            <form  class="pure-form pure-form-aligned" method="post" id="register">
+            {%csrf_token%}
+            <fieldset>
+<div class="pure-control-group">
+                <div class="myfieldclass">
+            
+<p>
+<label for="id_turma_idturma">Turma:</label> <select id="id_turma_idturma" name="turma_idturma" onchange="Altera_Campo();">
+            <option value="" selected="selected">Turma</option>
+            {% for turma in turmas %}
+            <option value="{{turma.idTurma}}" > {{turma.nome}} </option>     
+            
+           {%endfor%}
+            </select></p>
+
+<p>
+<label for="idDiciplina">Disciplina:</label> <select id="idDiciplina" name="disciplina_iddisciplina" onchange="cadastraAssunto();">
+            
+            {% comment %}
+            {% for disciplina in disciplinas %}
+            
+           <option data-course="{{disciplina.turma_idturma}}" value="{{disciplina.idDisciplina}}">{{disciplina.nome}}</option>
+           {%endfor%}
+           {% endcomment %}
+           
+           <option value="" selected="selected">  Disciplinas  </option>
+           
+            </select></p>
+<p><label for="id_nome">Assunto:</label> <input id="id_nome" maxlength="45" name="nome" type="text"  onchange="cadastraAssunto();" /></p>
+<p><label for="id_descricao">Descricao:</label> <textarea cols="40" id="id_descricao" name="descricao" rows="10" onchange="cadastraAssunto();">
+</textarea></p>
+</div>
+</div>
+<div class="pure-controls">
+                    <button  type="submit" class="pure-button pure-button-primary">Enviar</button>
+                </div>
+                </fieldset>
+            </form>
+            
+        </div>
+    </div>
+{% endblock %}

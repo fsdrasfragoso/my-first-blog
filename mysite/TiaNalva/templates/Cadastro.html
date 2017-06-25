@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="pure-g-r content-ribbon">
+        <div class="pure-u-1">
+    
+<form action="#contato" class="pure-form pure-form-aligned" method="post">
+ 
+                    {% csrf_token %}
+  <fieldset>
+  
+            <div class="pure-control-group">
+                <div class="myfieldclass">
+                    {{ form.as_p }}
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                        <
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                </div>
+                </div>
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Enviar</button>
+                </div>
+            </fieldset>
+                </form>
+</div>
+</div>
+
+{% endblock %}

@@ -18,9 +18,11 @@
             <ul>
                 <li class="pure-menu-selected"><a href="{% url 'index'%}">Início</a></li>
                 <li><a href="{% url 'turma'%}">Turmas</a></li>
-                <li><a href="#">Notas</a></li>
-                <li><a href="#">Disciplina</a></li>
-                <li><a href="#">Cadastrar Questões</a></li>
+                <li><a href="{% url 'CadastrarAluno'%}">Alunos</a></li>
+
+               
+                <li><a href="{% url 'CadastrarDisciplina'%}">Disciplina</a></li>
+                <li><a href="{% url 'CadastrarQuestao'%}">Cadastrar Questões</a></li>
                 <li><a href="#">Gerar Avaliações</a></li>
                 <li><a href="{% url 'contact'%}">Contato</a></li>
             {% if user.is_authenticated %}
@@ -39,5 +41,7 @@
     </div>
 </div>
 <script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>

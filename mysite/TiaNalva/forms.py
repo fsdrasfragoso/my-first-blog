@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Escola
+from .models import Escola, Turma, Aluno, Disciplina, Assunto, Questao
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -16,6 +16,49 @@ class MeuForm(forms.ModelForm):
     class Meta:
         model = Escola
         fields = '__all__'
+
+class FormTurma(forms.ModelForm):
+    
+    class Meta:
+        model = Turma
+        fields = '__all__'
+        widgets = {
+            'fields': forms.TextInput(attrs={'class': 'myfieldclass'}),
+        }
+
+class FormAluno(forms.ModelForm):
+    class Meta:
+        model = Aluno
+        fields = '__all__'
+        widgets = {
+            'fields': forms.TextInput(attrs={'class': 'myfieldclass'}),
+        }
+    
+
+class FormDisciplina(forms.ModelForm):
+    class Meta:
+        model = Disciplina
+        fields = '__all__'
+        widgets = {
+            'fields': forms.TextInput(attrs={'class': 'myfieldclass'}),
+        }
+
+
+class FormAssunto(forms.ModelForm):
+    class Meta:
+        model = Assunto
+        fields = '__all__'
+        widgets = {
+            'fields': forms.TextInput(attrs={'class': 'myfieldclass'}),
+        }
+
+class FormQuestao(forms.ModelForm):
+    class Meta:
+        model = Questao
+        fields = '__all__'
+        widgets = {
+            'fields': forms.TextInput(attrs={'class': 'myfieldclass'}),
+        }
 
 
 class ContactTurma(forms.Form):

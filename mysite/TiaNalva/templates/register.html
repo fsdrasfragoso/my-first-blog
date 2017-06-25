@@ -6,21 +6,30 @@
         <h2>Informe seus dados</h2>
         <form class="pure-form pure-form-stacked" method="post">
             {% csrf_token %}
-            <fieldset>
-                {{ form.non_field_errors }}
+           
 
-                {% for field in form %}
-                <div class="pure-control-group">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {{ field.errors }}
-                </div>
-                {% endfor %}
+<p><label for="id_nome">Nome:</label> <input id="id_nome" maxlength="45" name="nome" type="text" /></p>
+<p><label for="id_sobrenome">Sobrenome:</label> <input id="id_sobrenome" maxlength="45" name="nome" type="text" /></p>
+<p><label for="id_login">Login:</label> <input id="id_login" maxlength="45" name="nome" type="text" /></p>
+<p><label for="id_senha">Senha:</label> <input id="id_senha" maxlength="45" name="nome" type="password" /></p>
+<p><label for="id_nivel">Tipo de Usuaior:</label> <select id="id_nivel" name="nivel">
+<option value="" selected="selected">---------</option>
+<option value="1">Aluno</option>
+<option value="2">Professor</option>
+<option value="3">Cordenador Pedagogico</option>
+<option value="4">Gestor Escolar</option>
+</select></p>
+<p>
+<label for="id_escola_inep">Escola:</label> <select id="id_escola_inep" name="escola_inep" >
+            <option value="" selected="selected">Escola</option>
+            {% for escola in escola %}
+            <option value="{{escola.inep}}" > {{escola.nome}} </option>     
+            
+           {%endfor%}
+            </select></p>
 
-                <div class="pure-controls">
-                    <button type="submit" class="pure-button pure-button-primary">Cadastrar</button>
-                </div>
-            </fieldset>
+
+
         </form>
     </div>
 </div>

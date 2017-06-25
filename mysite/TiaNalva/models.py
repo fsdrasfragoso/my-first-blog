@@ -1,7 +1,10 @@
 
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import User
+
 from django.db import models
+from django.utils import timezone
 
 class EscolaManager(models.Manager):
 	"""docsCouseEscola models.Managerame"""
@@ -36,6 +39,8 @@ class AlunoManager(models.Manager):
 class Aluno(models.Model):
     matricula = models.CharField(max_length=45,primary_key=True)
     nome = models.CharField(db_column='Nome', max_length=45)  # Field name made lowercase.
+    url = models.ImageField(upload_to='TiaNalva/imagem', verbose_name='imagem', null=True, blank=True)
+    descricao = models.TextField(blank=True, null=True)
     chamada = models.IntegerField()
     turma_idturma = models.ForeignKey('Turma', db_column='Turma_idTurma')  # Field name made lowercase.
 
@@ -43,22 +48,34 @@ class Aluno(models.Model):
         managed = False
         db_table = 'aluno'
         unique_together = (('matricula'),)
+        verbose_name = 'Aluno'
+        verbose_name_plural = 'Alunos'
+        ordering = ['nome']
+    def __str__(self):
+      return self.nome
+    
+
 
 
 
 
 class Assunto(models.Model):
-    
-    assunto = models.CharField(db_column='Assunto', max_length=45)  # Field name made lowercase.
+    idAssunto = models.IntegerField(db_column='idAssunto', blank=True, primary_key=True)
+    assunto = models.CharField(db_column='Assunto', max_length=45, )  # Field name made lowercase.
     descricao = models.CharField(db_column='Descricao', max_length=45, blank=True, null=True)  # Field name made lowercase.
-    #disciplina_iddisciplina = models.ForeignKey('Disciplina', db_column='Disciplina_idDisciplina')  # Field name made lowercase.
+    disciplina_iddisciplina = models.ForeignKey('Disciplina', db_column='Disciplina_idDisciplina')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'assunto'
-       # unique_together = (('idAssunto', 'Disciplina_idDisciplina'),)
-
-
+        unique_together = (('idAssunto'),)
+        verbose_name = 'Assunto'
+        verbose_name_plural = 'Assuntos'
+        ordering = ['assunto']
+    def __str__(self):
+      return self.assunto
+    
+    
 
 
 
@@ -71,8 +88,7 @@ class Disciplina(models.Model):
         managed = False
         db_table = 'disciplina'
        # unique_together = (('idDisciplina'),)
-
-
+    
 class AlunoHasDisciplina(models.Model):
     id = models.IntegerField(db_column='id', blank=True, primary_key=True)
     aluno_matricula = models.ForeignKey(Aluno, db_column='ALUNO_matricula')  # Field name made lowercase.
@@ -95,7 +111,9 @@ class Escola(models.Model):
         verbose_name = 'Escola'
         verbose_name_plural = 'Escolas'
         ordering = ['nome']
-        
+    def __str__(self):
+      return self.nome
+    
 
 class Medias(models.Model):
   #  id = models.AutoField()
@@ -201,7 +219,7 @@ class Nota08(models.Model):
 
 
 class Questao(models.Model):
- #   idquestao = models.AutoField(db_column='idQuestao')  # Field name made lowercase.
+    idquestao = models.IntegerField(db_column='idQuestao',  blank=True, primary_key=True) # Field name made lowercase.
     pergunta = models.TextField()
     resposta = models.TextField(db_column='Resposta')  # Field name made lowercase.
     score = models.FloatField(db_column='Score')  # Field name made lowercase.
@@ -235,20 +253,29 @@ class Turma(models.Model):
         managed = False
         db_table = 'turma'
         unique_together = (('idTurma'),)
+        verbose_name = 'Turma'
+        verbose_name_plural = 'Turmas'
+        ordering = ['nome']
+    def __str__(self):
+      return self.nome
+    
 
+    #def (self):
+     # return self__str__.nome
 
+# fazer alteração aqui
 class Usuario(models.Model):
-    #idusuario = models.AutoField(db_column='idUsuario')  # Field name made lowercase.
-    login = models.CharField(max_length=45)
-    senha = models.CharField(max_length=45)
-    nivel = models.IntegerField()
-    cadastro = models.DateField(blank=True, null=True)
-    #escola_inep = models.ForeignKey(Escola, db_column='ESCOLA_inep')  # Field name made lowercase.
+    idusuario = models.AutoField(db_column='idUsuario',blank=True, primary_key=True)  # Field name made lowercase.
+    nivel = models.IntegerField(db_column='nivel', blank=False, null=False)
+    cadastro = models.DateField(blank=True, null=True, default=timezone.now)
+    escola_inep = models.ForeignKey(Escola, db_column='ESCOLA_inep')  
+    usuario = models.ForeignKey(User,null=False, blank=False, related_name='+')
+    # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'usuario'
-     #   unique_together = (('idUsuario', 'ESCOLA_inep'),)
+        unique_together = (('idusuario'),)
 
 @models.permalink
 def get_absolute_url(self):
