@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="pure-g-r content-ribbon">
+        <div class="pure-u-1">
+            <h1>Cadastrar Usuarios:</h1>
+            <p>Selecione a Turma </p>
+            <div  class="pure-form pure-form-aligned" >
+                       {%csrf_token%}
+            <fieldset>
+<div class="pure-control-group">
+                <div class="myfieldclass">
+        
+<p><label for="id_username">Login:</label> <input id="id_username" maxlength="45" name="nome" type="text"   />  </p>    
+
+<p><label for="id_nome">Nome:</label> <input id="id_nome" maxlength="45" name="nome" type="text"   />  </p>
+
+
+<p><label for="id_sobrenome">Sobrenome:</label> <input id="id_sobrenome" maxlength="45" name="nome" type="text"   />  </p>
+
+
+<p><label for="id_email">Email:</label> <input id="id_email" maxlength="45" name="nome" type="text"   />  </p>
+
+
+<p><label for="id_senha">Senha:</label> <input id="id_senha" maxlength="45" name="nome" type="password"   /></p>
+
+<p><label for="id_Nivel">Nivel:</label> <select id="id_Nivel" name="turma_idturma">
+            <option value="" selected="selected">Selecione o Nivel</option>
+            
+            <option value="1" > Aluno </option>     
+            <option value="2" > Professor </option>
+            <option value="3" > Gordenador Pedagogico </option>
+            <option value="4" > Gestor Escolar </option>
+            </select></p>
+
+<p><label for="id_Escola">Escola:</label> <select id="id_Escola" name="Escola_inep">
+            <option value="" selected="selected">Selecione sua Escola</option>
+            
+            {% for escola in escolas %}
+            <option value="{{escola.inep}}" > {{escola.nome}} </option>     
+            
+           {%endfor%}
+
+            </select></p>
+
+</div>
+</div>
+<div class="pure-controls">
+                    <button onclick="register_user();" type="submit" class="pure-button pure-button-primary">Enviar</button>
+                </div>
+                </fieldset>
+            
+           </div> 
+        </div>
+    </div>
+{% endblock %}

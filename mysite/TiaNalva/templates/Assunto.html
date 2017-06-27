@@ -5,9 +5,8 @@
         <div class="pure-u-1">
             <h1>Cadastrar Assuntos das Disciplinas:</h1>
             <p>Selecione a Turma </p>
-            
-            <form  class="pure-form pure-form-aligned" method="post" id="register">
-            {%csrf_token%}
+            <div  class="pure-form pure-form-aligned" >
+                       {%csrf_token%}
             <fieldset>
 <div class="pure-control-group">
                 <div class="myfieldclass">
@@ -34,17 +33,17 @@
            <option value="" selected="selected">  Disciplinas  </option>
            
             </select></p>
-<p><label for="id_nome">Assunto:</label> <input id="id_nome" maxlength="45" name="nome" type="text"  onchange="cadastraAssunto();" /></p>
-<p><label for="id_descricao">Descricao:</label> <textarea cols="40" id="id_descricao" name="descricao" rows="10" onchange="cadastraAssunto();">
+<p><label for="id_nome">Assunto:</label> <input id="id_nome" maxlength="45" name="nome" type="text"   /></p>
+<p><label for="id_descricao">Descricao:</label> <textarea cols="40" id="id_descricao" name="descricao" rows="10" >
 </textarea></p>
 </div>
 </div>
 <div class="pure-controls">
-                    <button  type="submit" class="pure-button pure-button-primary">Enviar</button>
+                    <button onclick="register();" type="submit" class="pure-button pure-button-primary">Enviar</button>
                 </div>
                 </fieldset>
-            </form>
             
+           </div> 
         </div>
     </div>
 {% endblock %}

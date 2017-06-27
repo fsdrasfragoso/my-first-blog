@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="pure-g-r content-ribbon">
+        <div class="pure-u-1">
+    
+<form action="#contato" class="pure-form pure-form-aligned" method="post">
+ 
+                    {% csrf_token %}
+  <fieldset>
+            <div class="pure-control-group">
+                <div class="myfieldclass">
+                    <p><label for="id_idquestao">Idquestao:</label> <input id="id_idquestao" name="idquestao" type="number" /></p>
+<p><label for="id_pergunta">Pergunta:</label> <textarea cols="40" id="id_pergunta" name="pergunta" rows="10">
+</textarea></p>
+<p><label for="id_resposta">Resposta:</label> <textarea cols="40" id="id_resposta" name="resposta" rows="10">
+</textarea></p>
+<p><label for="id_score">Score:</label> <input id="id_score" name="score" step="any" type="number" /></p>
+<p><label for="id_nivel">Nivel:</label> <input id="id_nivel" name="nivel" type="number" /></p>
+<p><label for="id_assunto_idassunto">Assunto idassunto:</label> <select id="id_assunto_idassunto" name="assunto_idassunto">
+<option value="" selected="selected">---------</option>
+</select></p>
+                    
+                    
+                    
+
+                </div>
+                </div>
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Enviar</button>
+                </div>
+            </fieldset>
+                </form>
+</div>
+</div>
+
+{% endblock %}
+

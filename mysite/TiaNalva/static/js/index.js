@@ -1,3 +1,4 @@
+console.log("carregado");
 function Altera_Campo() {
 	console.log("alterou");
 	var id = $("#id_turma_idturma").val();
@@ -34,18 +35,109 @@ function Altera_Campo() {
 
 }
 
+function register(){
+	 var idDiciplina = $("#idDiciplina").val(); 
+   	console.log(idDiciplina);
+    	var id_nome = $("#id_nome").val();
+    console.log(id_nome); 
+    	var id_descricao = $("#id_descricao").val(); 
+    console.log(id_descricao); 
+  
+   if (idDiciplina == '' || id_nome == '' || id_descricao == '') {
+            alert("Complete todos os campos!");
+        } else{
+           
+            $.ajax({
+                url : "/registrar/",
+                type : "POST",
+                data : { 
+                    assunto : id_nome,
+                    descricao : id_descricao,
+                    iddisciplina : idDiciplina,
+                     },
+
+                success : function(json) {
+                	$("#id_nome").val("");
+                    $("#id_descricao").val("");
+                    alert("Cadastrado com Sucesso");
+
+
+                },
+
+                
+            }); 
+        }
+
+
+}
+
+function register_user(){
+	 var username = $("#id_username").val();
+	 var nome = $("#id_nome").val(); 
+	 var sobrenome = $("#id_sobrenome").val(); 
+	 var email = $("#id_email").val(); 
+	 var senha = $("#id_senha").val(); 
+	 var nivel = $("#id_Nivel").val();
+	 var escola = $("#id_Escola").val();
+
+   	console.log(nome);
+   	console.log(sobrenome);
+   	console.log(email);
+   	console.log(senha);
+   	console.log(nivel);
+   	console.log(escola);
+ 	
+  
+   if (username == '' || nome == '' || sobrenome == '' || email == '' || senha == '' || nivel == '' || escola == '') {
+            alert("Complete todos os campos!");
+        } else{
+           
+            $.ajax({
+                url : "/reg/",
+                type : "POST",
+                data : { 
+                    username : username,
+                    nome : nome,
+                    sobrenome : sobrenome,
+                    email : email,
+                    senha : senha,
+                    nivel : nivel,
+                    escola : escola
+                     },
+
+                success : function(json) {
+                	$("#id_nome").val("");
+                    $("#id_descricao").val("");
+                    alert("Cadastrado com Sucesso");
+
+
+                },
+                error : function(xhr,errmsg,err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+
+                }
+
+                
+            }); 
+        }
+	
+
+}
+
+
+
 $('#register').submit(function() {
     var form = $(this);
     $('.t1').addClass("semfunc");
     $.post(form.attr('action'), form.serialize(), function(retorno) {
         
         var idDiciplina = $("#idDiciplina").val(); 
-   	//console.log(idDiciplina);
+   	console.log(idDiciplina);
     	var id_nome = $("#id_nome").val();
-    //console.log(id_nome); 
+    console.log(id_nome); 
     	var id_descricao = $("#id_descricao").val(); 
 
-        if (idDiciplina == '' || id_nome == '' || id_descricao == '') {
+       /* if (idDiciplina == '' || id_nome == '' || id_descricao == '') {
             $('.t2').removeClass("semfunc");
         } else{
            
@@ -65,7 +157,7 @@ $('#register').submit(function() {
 
                 
             }); 
-        }
+        } */
     });
     
 });

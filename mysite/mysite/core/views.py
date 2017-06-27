@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404, redirect, render_to_response, RequestContext
+from django.shortcuts import render, get_object_or_404, redirect, render_to_response, RequestContext, Http404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.conf import settings
 
-from TiaNalva.models import Turma, Disciplina, AlunoHasDisciplina, Aluno, Usuario, Assunto
+from TiaNalva.models import Turma, Disciplina, AlunoHasDisciplina, Aluno, Usuario, Assunto, Escola
 from TiaNalva.forms import ContactTurma, FormTurma, FormAluno 
 from TiaNalva.forms import RegisterForm, EditAccountForm, FormDisciplina
 from TiaNalva.forms import FormAssunto, FormQuestao
@@ -13,18 +14,22 @@ import json
 
 
 def registrar(request):
+    print(request.POST.get('assunto'))
+    print(request.POST.get('descricao'))
+    print(request.POST.get('iddisciplina'))
     if request.method == 'POST' and request.is_ajax():
         try:
             a = Assunto()
-            a.assunto = request.POST.get('id_nome')
-            a.descricao = request.POST.get('id_descricao')
-            a.disciplina_iddisciplina = request.POST.get('idDiciplina')
+            a.assunto = request.POST.get('assunto')
+            a.descricao = request.POST.get('descricao')
+            merda = request.POST.get('iddisciplina')
+            d = get_object_or_404(Disciplina, pk=merda)
+            a.disciplina_iddisciplina = d
             a.save()
-            #print("Assunto: "+ a.descricao)
-            #print("Disciplina: "+ a.disciplina_iddisciplina)
             return HttpResponse(json.dumps(True), content_type="application/json")
-            return HttpResponse(json.dumps(False), content_type="application/json")
+            
         except Exception as e:
+            print(e)
             return HttpResponse(json.dumps(False), content_type="application/json")
     raise Http404
 
@@ -72,17 +77,7 @@ def CadastrarAssunto(request):
     context['turmas'] = turmas
     context['disciplinas'] = disciplinas
 
-    # Cria form
-    form = FormAssunto(request.POST or None)
- 
-    # Valida e salva
-    if form.is_valid():
-        
-        salvar = form.save(commit=False)
-        salvar.save()
-        return HttpResponse("Dados inseridos com sucesso!")        
- 
-    # Chama Template
+    
     return render(request, 'Assunto.html', context)
 
 #def details(request, pk):
@@ -116,16 +111,23 @@ def dashboard(request):
     return render(request, template_name)
 
 def register(request):
+    escola = Escola.objects.all()
+
+
+    return render(request, 'CadastroUsuario.html', {'escolas':escola})
+
+def reg(request):
         
     if request.method == 'POST' and request.is_ajax():
         userInstance = User()
+        userInstance.first_name = request.POST.get('nome')
+        userInstance.last_name = request.POST.get('sobrenome')
+        userInstance.email = request.POST.get('email')
         userInstance.username = request.POST.get('username')
         
-        passw = request.POST.get('password')
+        passw = request.POST.get('senha')
         userInstance.set_password(passw)
         userInstance.save()
-        print("user: "+ userInstance.username)
-        print("senha: "+ passw)
         
 
         user = authenticate(username=userInstance.username, password=passw)
@@ -133,8 +135,11 @@ def register(request):
             if user.is_active:
                 login(request, user)
                 usuario = Usuario()
+                usuario.usuario = user
+                usuario.idusuario = 1
                 usuario.nivel = request.POST.get('nivel')
-                usuario.escola_inep = request.POST.get('escola_inep')
+                escola = get_object_or_404(Escola, inep=request.POST.get('escola'))
+                usuario.escola_inep = escola
                 usuario.save()
                 return HttpResponse(json.dumps(True), content_type="application/json")
         return HttpResponse(json.dumps(False), content_type="application/json")
@@ -172,18 +177,8 @@ def edit_password(request):
 @login_required
 def CadastrarQuestao(request):
     request.user
-    # Cria form
-    form = FormQuestao(request.POST or None)
- 
-    # Valida e salva
-    if form.is_valid():
-        
-        salvar = form.save(commit=False)
-        salvar.save()
-        return HttpResponse("Dados inseridos com sucesso!")        
- 
-    # Chama Template
-    return render_to_response("Cadastro.html",
+    
+    return render_to_response("CadastroQuestao.html",
                               locals(),
                               context_instance = RequestContext(request))
 
