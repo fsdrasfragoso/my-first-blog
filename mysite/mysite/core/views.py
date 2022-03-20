@@ -80,13 +80,7 @@ def CadastrarAssunto(request):
     
     return render(request, 'Assunto.html', context)
 
-#def details(request, pk):
-#	turma = get_object_or_404(Turma, pk=pk)
-#	context = {
-#		'turma': turma
-#	}
-#	 
-#	return render(request, 'details.html', context)
+
 @login_required
 def details(request, pk):
     turma = get_object_or_404(Turma, pk=pk)
